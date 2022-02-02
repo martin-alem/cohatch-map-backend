@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
+import placeController from "./controllers/placeController.js";
+
 //Read environment variable from .env
 dotenv.config();
 
@@ -20,8 +22,11 @@ app.enable("trust proxy");
 app.use(cors(corsOptions));
 app.use(express.json());
 
+//place endpoint
+app.get("/api/v1/place", placeController);
+
 //Ping routes to check server status
-app.get("/api/ping", (req, res) => {
+app.get("/api/v1/ping", (req, res) => {
   res.status(200).json({
     status: 200,
     message: "Server up and running",
