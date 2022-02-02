@@ -3,9 +3,15 @@ import axios from "axios";
 async function placeController(req, res, next) {
   try {
     const { query, location, type, radius } = req.query;
-    const api = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&location=${location}&type=${type}&radius=${radius}&key=${process.env.API_KEY}`;
+    let api = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&type=${type}&key=${process.env.API_KEY}`;
+    if (location) {
+      api = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&location=${location}&type=${type}&key=${process.env.API_KEY}`;
+    }
+    if (radius) {
+      api = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&location=${location}&type=${type}&radius=${radius}&key=${process.env.API_KEY}`;
+    }
     const config = {
-      method: "get",
+      method: "GET",
       url: api,
       headers: {},
     };
